@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .more {
+    padding: 10px 10px;
+    height: 50px;
+    background: #fff;
+    background-clip: content-box;
+    text-align: center;
+    line-height: 50px;
+    font-family: "Microsoft Yahei";
+    display: none;
+  }
+
+</style>
+
+<body>
+  <div class="more" data-page="1" data-rname="">
+    加载更多
+  </div>
+  
+</body>
+<script src="./jQuery.min.js"></script>
+<script>
+  /**
+   2  *实现滚动效果 
+   3  */
+  $(function () {
+    var clientH = $(window).height();//屏幕高度
+    var h = $(document).height() - $(window).scrollTop();
+    var timer = null;
+    $(window).on("touchmove", function () {
+      var scrollH = $(document).height();
+      h = scrollH - $(this).scrollTop();
+      if (clientH >= h) {
+        $(".more").show();
+        timer = setTimeout(function () {
+          $(".more").html("松开加载");
+        }, 1000);
+      } else if (clientH >= h - $(".more").height()) {
+
+        $(".more").html("加载更多");
+        $(".more").hide();
+      }
+    });
+    //记录开始按下到松开的时间
+
+    var startTime, endTime;
+    $(window).on("touchstart", function (event) {
+      startTime = new Date().getTime();
+      $(".more").html("加载更多");
+    });
+    $(window).on("touchend", function (event) {
+      h = $(document).height() - $(window).scrollTop();
+      if (clientH >= h) {
+        endTime = new Date().getTime();
+        if (endTime - startTime > 900) {
+          $(".more").trigger("click");
+          $(".more").show();
+          $(".more").html("加载中...");
+        } else {
+          clearTimeout(timer);
+          $(".more").html("加载更多");
+          $(".more").hide();
+
+        }
+      } else {
+        clearTimeout(timer);
+        $(".more").html("加载更多");
+        $(".more").hide();
+
+      }
+
+    });
+  });
+</script>
+
+</html>

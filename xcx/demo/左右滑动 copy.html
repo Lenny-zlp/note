@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>huodong </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+/* 
+    #box {
+      width: 90%;
+      height: 490px;
+      background: #f00;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    #inner {
+      width: 80%;
+      height: 2000px;
+      background: #f67d42;
+      margin: auto;
+      position: relative;
+      top: 0;
+    } */
+  </style>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="touchwipe.js"></script>
+</head>
+
+<body>
+
+  <div id="box" style="width:100%;height:500px;border:1px solid red;"></div>
+
+  <script>
+    //定义变量，用于记录坐标和角度
+    var startx, movex, endx, nx;
+    //开始触摸函数，event为触摸对象
+    function touchs(event) {
+      event.preventDefault();//阻止浏览器默认滚动事件
+      var box = document.getElementById("box");//获取DOM标签
+      if (event.type == "touchstart") {//通过if语句判断event.type执行了哪个触摸事件
+        console.log("开始");
+        var touch = event.touches[0];//获取开始的位置数组的第一个触摸位置
+        startx = Math.floor(touch.pageX);//获取第一个坐标的X轴
+      } else if (event.type == "touchmove") {//触摸中的坐标获取
+        console.log("‘滑动中‘");
+        var touch = event.touches[0];
+        movex = Math.floor(touch.pageX);
+      } else if (event.type == "touchend" || event.type == "touchcancel") {//当手指离开屏幕或系统取消触摸事件的时候
+        endx = Math.floor(event.changedTouches[0].pageX);//获取最后的坐标位置
+        console.log("‘结束‘");
+        nx = endx - startx;//获取开始位置和离开位置的距离
+        //判断滑动方向
+        if (nx > 0) {
+          alert("‘右滑动‘");
+          return false;
+        } else {
+          alert("‘左滑动‘");
+          return false;
+        }
+      }
+    }
+    //添加触摸事件的监听，并直行自定义触摸函数
+    box.addEventListener("touchstart", touchs, false);
+    box.addEventListener("touchmove", touchs, false);
+    box.addEventListener("touchend", touchs, false);
+  </script>
+</body>
+
+</html>

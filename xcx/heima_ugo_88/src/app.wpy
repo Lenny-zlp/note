@@ -1,0 +1,223 @@
+<style lang="less">
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+// 弹框函数
+import './baseAPI.js'
+
+export default class extends wepy.app {
+  config = {
+    // 引用并注册全局组件
+    usingComponents: {
+      // 在注册组件时 需要使用键值对形式
+      // 键 注册组件的名字
+      // 值 组件的路径
+      // 'van-button': './assets/vant/button/index'
+      'van-sidebar': './assets/vant/sidebar/index',
+      'van-sidebar-item': './assets/vant/sidebar-item/index',
+      'van-card': './assets/vant/card/index',
+      // Icon 图标
+      'van-icon': './assets/vant/icon/index',
+      // Tab 标签页
+      'van-tab': './assets/vant/tab/index',
+      'van-tabs': './assets/vant/tabs/index',
+      // GoodsAction 商品导航
+      'van-goods-action': './assets/vant/goods-action/index',
+      'van-goods-action-icon': './assets/vant/goods-action-icon/index',
+      'van-goods-action-button': './assets/vant/goods-action-button/index',
+      // Search 搜索
+      'van-search': './assets/vant/search/index',
+      // Tag 标签
+      'van-tag': './assets/vant/tag/index'
+    },
+    pages: [
+      'pages/tabs/home',
+      'pages/tabs/cates',
+      'pages/tabs/search',
+      'pages/tabs/cart',
+      'pages/tabs/my',
+      'pages/goods_detail/index',
+      'pages/goods_list/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      // 配置导航条的背景色
+      navigationBarBackgroundColor: '#f00',
+      // 导航条文本
+      navigationBarTitleText: '黑马优购',
+      // 导航条文本颜色
+      navigationBarTextStyle: 'white'
+    },
+    // 全局配置tabbar
+    tabBar: {
+      // 配置tabbar 选中时文字的颜色
+      selectedColor: '#D81E06',
+      list: [
+        {
+          // 首页路径
+          pagePath: 'pages/tabs/home',
+          // 文字
+          text: '首页',
+          // 未选中时图标颜色
+          iconPath: '/assets/icons/home.png',
+          // 选中时图标颜色
+          selectedIconPath: '/assets/icons/home-active.png'
+        },
+        {
+          // 首页路径
+          pagePath: 'pages/tabs/cates',
+          // 文字
+          text: '分类',
+          // 未选中时图标颜色
+          iconPath: '/assets/icons/cates.png',
+          // 选中时图标颜色
+          selectedIconPath: '/assets/icons/cates-active.png'
+        },
+        {
+          // 首页路径
+          pagePath: 'pages/tabs/search',
+          // 文字
+          text: '搜索',
+          // 未选中时图标颜色
+          iconPath: '/assets/icons/search.png',
+          // 选中时图标颜色
+          selectedIconPath: '/assets/icons/search-active.png'
+        },
+        {
+          // 首页路径
+          pagePath: 'pages/tabs/cart',
+          // 文字
+          text: '购物车',
+          // 未选中时图标颜色
+          iconPath: '/assets/icons/cart.png',
+          // 选中时图标颜色
+          selectedIconPath: '/assets/icons/cart-active.png'
+        },
+        {
+          // 首页路径
+          pagePath: 'pages/tabs/my',
+          // 文字
+          text: '我的',
+          // 未选中时图标颜色
+          iconPath: '/assets/icons/my.png',
+          // 选中时图标颜色
+          selectedIconPath: '/assets/icons/my-active.png'
+        }
+      ]
+    }
+  }
+
+  // 全局共享数据的节点
+  globalData = {
+    // 收货地址
+    address: null,
+    // 搜索历史记录
+    history: []
+  }
+
+  // 设置收货地址
+  setAddress(address) {
+    // 把页面传递过来的 address 收货地址，
+    // 保存到 全局 globalData 中
+    this.globalData.address = address
+    // 调用这个API,可以把数据,持久化存储到小程序的 storage 中
+    this.saveToStorage()
+  }
+  // 追加历史记录
+  addHistory(str) {
+    // new Set() // 创建 空 Set
+    // new Set([1,2,3,4]) // 创建一个非空的 Set, Set 中有 4 个值
+    // new Set([1,2,3,4,1]) // 创建一个非空的 Set, Set 中有 4 个值
+    // new Set([  'apple', ...['ao', 'a', 'apple']  ]) // 创建一个非空的 Set, Set 中有 3 个值
+    const st = new Set([str, ...this.globalData.history])
+    // Array.from(Set对象) // 把 Set 集合,转化为一个数组
+    this.globalData.history = Array.from(st)
+
+    // 只要修改了 this.globalData 这个对象中的数据,最后,必须要调用 this.saveToStorage() 这个函数, 将全局数据持久化存储到 storage 中
+    this.saveToStorage()
+  }
+
+  // 清空搜索历史记录
+  clearHistory() {
+    this.globalData.history = []
+    this.saveToStorage()
+  }
+
+  // 只要调用这个函数,就会把全局的 globalData 持久化存储到 storage 中
+  saveToStorage() {
+    // 同步方式
+    // wepy.setStorage({
+    //   key: 'globalData',
+    //   data: this.globalData
+    // })
+
+    // 异步方式
+    wepy.setStorageSync('globalData', this.globalData)
+  }
+
+  constructor() {
+    super()
+    this.use('requestfix')
+    // 开启全局promise
+    this.use('promisify')
+    // 请求拦截器
+    this.intercept('request', {
+      // 发出请求时的回调函数
+      config(p) {
+        wepy.showLoading({
+          title: '数据加载中...'
+        })
+        return p
+      },
+      // 请求成功后的回调函数
+      success(p) {
+        // 可以在这里对收到的响应数据对象进行加工处理
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return p
+      },
+
+      // 请求失败后的回调函数
+      fail(p) {
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return p
+      },
+
+      // 请求完成时的回调函数(请求成功或失败都会被执行)
+      complete(p) {
+        wepy.hideLoading()
+      }
+    })
+  }
+
+  onLaunch() {
+    // 加载 storage 中的数据
+    this.initGlobalData()
+  }
+
+  // 初始化全局的数据
+  async initGlobalData() {
+    // const res = await wepy
+    //   .getStorage({
+    //     key: 'globalData'
+    //   })
+    //   .catch(err => err)
+
+    // // 数据读取成功
+    // if (res.errMsg === 'getStorage:ok') {
+    //   this.globalData = res.data
+    // }
+
+    // 同步获取
+    try {
+      var value = wepy.getStorageSync('globalData')
+      if (value) {
+        this.globalData = value
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+</script>

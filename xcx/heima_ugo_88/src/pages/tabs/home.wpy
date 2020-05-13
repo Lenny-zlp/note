@@ -1,0 +1,121 @@
+<template>
+  <view>
+    <!-- 轮播区域 -->
+    <swiper circular indicator-dots>
+      <swiper-item wx:for="{{swiperList}}" wx:key="index">
+        <navigator
+        url="{{item.navigator_url}}"
+        open-type="{{item.open_type}}"
+        hover-class="none"
+        >
+        <image src="{{ item.image_src }}"></image>
+          </navigator>
+      </swiper-item>
+    </swiper>
+    <!-- 导航区域 -->
+    <view class="navs">
+      <block wx:for="{{ navs }}" wx:key="index">
+        <navigator
+        wx:if="{{item.navigator_url!==undefined}}"
+        url="./cates" open-type="{{item.open_type}}"
+        hover-class="none"
+        >
+          <image src="{{item.image_src}}"></image>
+        </navigator>
+        <image src="{{item.image_src}}" wx:else></image>
+      </block>
+    </view>
+
+    <!-- 楼层区 -->
+    <view class="floor-list">
+      <!-- 每层楼 -->
+      <block wx:for="{{floors}}" wx:key="index">
+        <image
+        src="{{item.floor_title.image_src}}"
+        class="floor-title"></image>
+        <!-- 图片列表 -->
+        <view class="floor-img">
+          <!-- 左侧大图 -->
+          <navigator
+          class="left"
+          url="{{item.product_list[0].navigator_url}}"
+          open-type="{{item.product_list[0].open_type}}"
+          hover-class="none"
+          >
+            <image
+            src="{{item.product_list[0].image_src}}"
+            style="width:{{item.product_list[0].image_width}}rpx"
+            mode="widthFix"
+            ></image>
+          </navigator>
+          <!-- 右侧小图 -->
+            <view class="right">
+              <block wx:for="{{item.product_list}}" wx:key="index">
+                <navigator
+                wx:if="{{index>0}}"
+                url="{{item.navigator_url}}"
+                open-type="{{item.open_type}}"
+                hover-class="none"
+                >
+                  <image
+                  src="{{item.image_src}}"
+                  style="width:{{item.image_width}}rpx"
+                  mode="widthFix"
+                  ></image>
+                </navigator>
+              </block>
+            </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import mix from '@/mixins/tabs/home.js'
+
+export default class extends wepy.page {
+  mixins = [mix]
+}
+</script>
+
+<style lang="less">
+// 轮播图区
+  swiper {
+    height: 350rpx;
+    navigator,image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // 导航区
+  .navs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40rpx 0;
+    image {
+      width: 128rpx;
+      height: 140rpx;
+    }
+  }
+
+  // 楼层区
+  .floor-list {
+    .floor-title {
+      width: 100%;
+      height: 55rpx;
+    }
+  }
+
+.floor-img {
+  display: flex;
+  .right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+</style>

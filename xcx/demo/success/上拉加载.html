@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上拉加载</title>
+</head>
+<style>
+  html,body{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+#ul{
+    width: 100%;
+    position: relative;
+    -webkit-padding-start:0;
+    -webkit-margin-before:0;
+    -webkit-margin-after:0;
+}
+.pin{
+    /*width: 100%;*/
+    height: 90px;
+    line-height: 90px;
+    background-color: #eee;
+    padding: 6px 8px;
+    position: relative;
+    border-bottom: 1px solid #fff;
+}
+.bottom-line{
+    text-align: center;
+    background-color: #eee;
+}
+#loading {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 2000;
+opacity: 1;
+}
+
+#loading img {
+width: 100%;
+position: absolute;
+z-index: 2001;
+}
+</style>
+<body>
+  <div id="item">
+    <ul id="ul">
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+        <li class="pin">
+          我是原有的li标签哦！！！
+        </li>
+    </ul>
+    <div class="bottom-line"></div>
+    <div id="loading"><img src="./2020_3_2_10_0_54_1260.jpg" id="loading" /></div>
+</div>
+</body>
+<!-- <script src="../public/zepto.js"></script> -->
+<script src="./jQuery.min.js"></script>
+<script>
+// $(window).scroll() // 滚动条滚动时触发 
+// $(document).height() 当前页面的总高度
+// $(window).scrollTop()   滚动出去的距离
+// $(window).height() 手机屏幕高度
+// $().offset() 
+(function(){
+  $('#ul').on('touchmove',function(){
+    // console.log(123,$(window).height());
+    // console.log($(this).height(),$(window).scrollTop(),$(document).height(),$(window).height());
+    // 距离底部的位置
+    var ligh = $(document).height() - $(window).scrollTop() - $(window).height()
+    if (ligh <= 40) {
+      $('.bottom-line').css('display','block').text('正在加载...');
+      checkPull()
+    }
+    // console.log($(document).height());
+       //判断最后一个元素是否在底部之上
+      //  if( $('.pin').eq($('.pin').length-1).offset().top-$(window).scrollTop() < $(window).height() ){
+      //      $('.bottom-line').css('display','block').text('正在加载...');
+      //      checkPull();
+      //  }
+   });
+   //添加元素方法
+   function checkPull(){
+       var pinNew;
+      //  console.log(a)
+       pinNew=document.createDocumentFragment();
+       //每次添加5条内容
+       for(var j=5;j>0;j--){
+         var li= document.createElement('li');
+         li.className="pin";
+         var a = Math.random().toFixed(5)
+           li.innerHTML= '我是新填的li标签哦！！！' + a +'end'
+          //  console.log(li);
+           pinNew.appendChild(li);
+       }
+       $('#ul')[0].appendChild(pinNew);
+   }
+  //  //添加元素方法
+  //  function checkPull(){
+  //      var pinNew;
+  //     //  console.log(a)
+  //      pinNew=document.createDocumentFragment();
+  //      //每次添加5条内容
+  //      for(var j=5;j>0;j--){
+  //        var li = document.createElement('aside');
+  //        li.className="orderListM";
+  //        var a = Math.random().toFixed(5)
+  //          li.innerHTML= `
+  //           <div class="orderNum">
+  //               <em>订单编号：419101400041</em>
+  //               <i>已取消</i>
+                
+  //           </div>
+  //           <dl class="orderWrap">
+  //               <a href="/UserCenter/My_OrderDetails_wq89BbbS.html?gc=419101400041" class="orderL">
+
+  //                   <dt class="vd_zt4_1 " style="min-height: 70px;">
+  //                           <img src="http://cache.jiangxinxiaozhen.com//product/2019/1/3/0000427/2019_1_3_16_32_15_6356.jpg?x-oss-process=image/resize,w_120" alt="天然酵母面包【880克/箱】">
+  //                   </dt>
+
+  //                   <dd class="vd_zt4_tit" style="height: 70px;">
+  //                       <p>天然酵母面包【880克/箱】</p>
+  //                       <p>880克/箱  </p>
+  //                       <p class="messLast"><span>¥ 29.90</span></p>
+  //                       <em>1</em>
+  //                   </dd>
+  //               </a>
+  //           </dl>`
+  //         //  console.log(li);
+  //          pinNew.appendChild(li);
+  //      }
+  //      $('#ul')[0].appendChild(pinNew);
+  //  }
+        })();
+            //监听加载状态改变
+document.onreadystatechange = completeLoading;
+//加载状态为complete时移除loading效果
+function completeLoading() {
+if (document.readyState == "complete") {
+$("#loading").animate({
+"opacity": "0"
+}, 500).hide(1000);
+}
+}
+</script>
+<!-- <script>
+  // 懒加载
+  $('#ul').on('touchmove',function(){
+    var flag = true
+// 距离底部的位置 = 文档内容的高度 -   滚动出屏幕的高度     -    手机屏幕的高度
+    var ligh = $(document).height() - $(window).scrollTop() - $(window).height()
+    if (ligh <= 40 && flag == true) {
+      // $('.bottom-line').css('display','block').text('正在加载...');
+      // checkPull()
+    }
+    // console.log($(document).height());
+       //判断最后一个元素是否在底部之上
+      //  if( $('.pin').eq($('.pin').length-1).offset().top-$(window).scrollTop() < $(window).height() ){
+      //      $('.bottom-line').css('display','block').text('正在加载...');
+      //      checkPull();
+      //  }
+   })
+   function loadData () {
+     flag = false
+     $.ajax({
+       type: "GET",
+       url: '',
+       data: {page: p},
+       dataType: 'json',
+       success: function(res) {
+         var str = '',
+         res.forEach(function(item) {
+           str += `<li>新增标签li</li>`
+         })
+         $('#ul').append(str)
+         flag = true
+       }
+     })
+   }
+</script> -->
+</html>

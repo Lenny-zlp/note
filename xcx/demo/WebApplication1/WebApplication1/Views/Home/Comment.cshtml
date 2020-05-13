@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "评价";
+}
+@Styles.Render("~/Content/less")
+
+    <!-- start -->
+    <div class="comment_nav">
+        <div class="comment_top">
+            <div class="comment_d red"><span>待评价</span><i class="line"></i></div>
+            <div class="comment_y"><span>已评价</span><i class="lin"></i></div>
+        </div>
+        <div class="bot">
+            <!-- 待评价列表 -->
+            <div class="d_cont">
+                <ul>
+                    <li>
+                        <div class="comment_l">
+                            <img src="./2020_3_2_10_0_54_1260.jpg" alt="">
+                        </div>
+                        <div class="comment_p">
+                            <p>KEBERAY玻尿酸泡沫洗面奶</p>
+                            <p>1.5ml*7支/盒</p>
+                        </div>
+                        <div class="gocomment">
+                            <span>
+                                去评价
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="comment_l">
+                            <img src="./2020_3_2_10_0_54_1260.jpg" alt="">
+                        </div>
+                        <div class="comment_p">
+                            <p>KEBERAY玻尿酸泡沫洗面奶</p>
+                            <p>1.5ml*7支/盒</p>
+                        </div>
+                        <div class="gocomment">
+                            <span>
+                                去评价
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="comment_l">
+                            <img src="./2020_3_2_10_0_54_1260.jpg" alt="">
+                        </div>
+                        <div class="comment_p">
+                            <p>KEBERAY玻尿酸泡沫洗面奶</p>
+                            <p>1.5ml*7支/盒</p>
+                        </div>
+                        <div class="gocomment">
+                            <span>
+                                去评价
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="comment_l">
+                            <img src="./2020_3_2_10_0_54_1260.jpg" alt="">
+                        </div>
+                        <div class="comment_p">
+                            <p>KEBERAY玻尿酸泡沫洗面奶</p>
+                            <p>1.5ml*7支/盒</p>
+                        </div>
+                        <div class="gocomment">
+                            <span>
+                                去评价
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="comment_l">
+                            <img src="./2020_3_2_10_0_54_1260.jpg" alt="">
+                        </div>
+                        <div class="comment_p">
+                            <p>KEBERAY玻尿酸泡沫洗面奶</p>
+                            <p>1.5ml*7支/盒</p>
+                        </div>
+                        <div class="gocomment">
+                            <span>
+                                去评价
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 已评价列表 -->
+            <div class="y_cont hid">
+                 <ul>
+                  <li>
+                    <div class="y_top">
+                      <div class="y_img">
+                        <img src="./images/2020_3_2_10_0_54_1260.jpg" alt="">
+                      </div>
+                      <div class="y_grade">
+                        <div class="y_font">
+                          益生菌儿童牙膏
+                        </div>
+                        <div class="y_star">
+                          <i>评分:</i>
+                          <img src="./images/已评价-星星-高亮@2x.png" alt="">
+                          <img src="./images/已评价-星星-灰色@2x.png" alt="">
+                        </div>
+                        <div class="appraise_time">
+                          评价时间: <span>2020/03/30 07:54:34</span>
+                      </div>
+                      </div>
+                    </div>
+                    <p>橙子味道，宝宝很喜欢，橙子味道，宝宝很喜欢，橙子味道，宝宝很喜欢，</p>
+                    <p class="hid">您没有填写评价内容, 已默认好评！</p>
+                    <div class="y_bot">
+                        <span class="y_image">
+                          <img src="./images/2020_3_2_10_0_54_1260.jpg" alt="">
+                        </span>
+                        <span class="y_image">
+                          <img src="./images/2020_3_2_10_0_54_1260.jpg" alt="">
+                        </span>
+                        <span class="y_image">
+                          <img src="./images/2020_3_2_10_0_54_1260.jpg" alt="">
+                        </span>
+                        <span class="y_image">
+                          <img src="./images/2020_3_2_10_0_54_1260.jpg" alt="">
+                        </span>
+                        <span class="y_image">
+                          <img src="./images/2020_3_2_10_0_54_1260.jpg" alt="">
+                        </span>
+                    </div>
+                  </li>
+                </ul> 
+                <img src="./images/评价无数据@2x.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- end -->
+
+<script src="~/Scripts/flexible.js"></script>
+<script>
+    $(function () {
+
+        // 点击待评价
+        $('.comment_d').click(function () {
+            $(this).addClass('red').siblings('.comment_y').removeClass('red')
+            $(this).find('i').addClass('line').removeClass('lin')
+            $(this).siblings('.comment_y').find('i').removeClass('line').addClass('lin')
+            $(this).parents('.comment_nav').find('.d_cont').removeClass('hid')
+            $(this).parents('.comment_nav').find('.y_cont').addClass('hid')
+        })
+
+        // 点击已评价
+        $('.comment_y').click(function () {
+            $(this).addClass('red').siblings('.comment_d').removeClass('red')
+            $(this).find('i').addClass('line').removeClass('lin')
+            $(this).siblings('.comment_d').find('i').removeClass('line').addClass('lin')
+            $(this).parents('.comment_nav').find('.d_cont').addClass('hid')
+            $(this).parents('.comment_nav').find('.y_cont').removeClass('hid')
+        })
+
+        $('.gocomment span').click(function () {
+
+        })
+
+
+
+    })
+</script>

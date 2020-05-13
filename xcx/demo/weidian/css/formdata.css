@@ -1,0 +1,167 @@
+body,
+ul,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+img {
+  border: 0 none;
+  /*清除ie6默认图片边框*/
+}
+li {
+  list-style: none;
+}
+i,
+em {
+  font-style: normal;
+}
+.w {
+  margin: 50pxfo auto;
+  width: 375px;
+  height: 1000px;
+  background-color: #ccc;
+}
+.w ul {
+  padding: 0;
+}
+.w ul li {
+  padding: 15px 15px 20px 15px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.w ul li .y_top {
+  display: flex;
+  margin-bottom: 17px;
+}
+.w ul li .y_top .y_img {
+  width: 75px;
+  height: 75px;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: #ccc;
+}
+.w ul li .y_top .y_img img {
+  width: 75px;
+  height: 75px;
+}
+.w ul li .y_top .y_grade {
+  display: flex;
+  flex-direction: column;
+  margin-left: 14px;
+}
+.w ul li .y_top .y_grade .specs {
+  font-size: 14px;
+  color: #999;
+}
+.w ul li .y_top .y_grade .y_font {
+  height: 37px;
+  line-height: 37px;
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.w ul li .y_star {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  line-height: 28px;
+}
+.w ul li .y_star i {
+  font-size: 14px;
+  font-style: normal;
+  margin-right: 11px;
+  color: #303030;
+}
+.w ul li .y_star span {
+  display: inline-block;
+  display: flex;
+  margin-right: 11px;
+  width: 14px;
+  height: 14px;
+}
+.w ul li .y_star span img {
+  width: 14px;
+  height: 14px;
+}
+.w ul li .y_star em {
+  font-size: 14px;
+  color: #666;
+}
+.w ul li .textarea textarea {
+  width: 100%;
+  height: 109px;
+  font-size: 14px;
+  line-height: 21px;
+  color: #303030;
+  resize: none;
+  overflow: hidden;
+  overflow-y: scroll;
+  border: 0 none;
+  outline: none;
+}
+.w ul li .pic {
+  display: flex;
+  flex-wrap: wrap;
+}
+.w ul li .pic div {
+  position: relative;
+  width: 75px;
+  height: 75px;
+  margin: 0 8px 8px 0;
+}
+.w ul li .pic div label {
+  width: 75px;
+  height: 75px;
+}
+.w ul li .pic div label img {
+  width: 75px;
+  height: 75px;
+}
+.w ul li .pic div i {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #222;
+}
+.w ul li .pic div:nth-child(4) {
+  margin-right: 0;
+}
+.w .foot {
+  background-color: #fff;
+  display: flex;
+  height: 45px;
+}
+.w .foot i {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  flex: 1;
+  height: 43PX;
+}
+.w .foot span {
+  width: 86px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  font-family: '微软雅黑';
+  background-color: #eb5902;
+}

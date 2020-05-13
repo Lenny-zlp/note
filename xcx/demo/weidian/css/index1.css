@@ -1,0 +1,127 @@
+body,
+ul,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  background-color: #ccc;
+}
+li {
+  list-style: none;
+}
+a {
+  /* width: 100%; */
+  text-decoration: none;
+  color: #666;
+}
+a:hover {
+  color: #2979ff;
+}
+img {
+  border: 0 none;
+  /*清除ie6默认图片边框*/
+  vertical-align: middle;
+  /*清除图片默认底部缝隙*/
+}
+input,
+textarea {
+  outline: none;
+  /*清除默认轮廓线*/
+  border: 0 none;
+  /*清除默认边框*/
+}
+.hid {
+  display: none;
+}
+.red {
+  color: #EB5902;
+}
+.line {
+  border: 2px solid #EB5902;
+  border-radius: 2px;
+}
+.lin {
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.w {
+  width: 750px;
+  height: 1180px;
+  background-color: #eee;
+  margin: 100px auto;
+}
+.comment_nav .comment_top {
+  font-size: 32px;
+  color: #303030;
+  display: flex;
+  height: 90px;
+  align-items: center;
+}
+.comment_nav .comment_top div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  line-height: 87px;
+  text-align: center;
+  background-color: #fff;
+  align-items: center;
+}
+.comment_nav .comment_top div span {
+  flex: 1;
+}
+.comment_nav .comment_top div i {
+  width: 60px;
+}
+.d_cont ul li {
+  padding: 30px;
+  height: 149px;
+  display: flex;
+  border-top: 1px solid #eee;
+}
+.d_cont ul li .comment_l {
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+  margin-right: 28px;
+}
+.d_cont ul li .comment_l img {
+  width: 150px;
+  height: 150px;
+}
+.d_cont ul li .comment_p {
+  width: 65%;
+}
+.d_cont ul li .comment_p p {
+  padding: 14px 0 20px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 28px;
+  color: #303030;
+}
+.d_cont ul li .gocomment {
+  width: 130px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.d_cont ul li .gocomment span {
+  display: inline-block;
+  color: #eb5902;
+  text-align: center;
+  font-size: 26px;
+  line-height: 50px;
+  width: 128px;
+  height: 48px;
+  border: 1px solid #f6f6f6;
+  border-radius: 25px;
+}

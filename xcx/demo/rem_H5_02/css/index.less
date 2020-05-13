@@ -1,0 +1,93 @@
+
+// 第一步：原稿实现，设计稿多大，代码实现就是多大；
+
+// 第二步：PX单位换rem;
+// 2.0 准备了一个JS文件，达到连续变化的特点，把屏幕的宽度/10 = 1rem值；
+// 2.1 找当前设计稿750px 设计稿屏幕下，拿到屏幕下 1rem 代表的值是多少；1rem = 750/10 = 75px;
+// 2.2 88px = 88/75rem = 88/75 * 75px = 88px
+// 2.3 其他屏幕720px   88/75rem = 88/75*72px = 82.3px;
+
+
+
+// 问题1：JS在body上设置了font-size大小，标签内的样式的权重比CSS文件样式权重高，需要在CSS文件样式提高权重；
+// 问题2：JS在超过750px 和 小于320px 范围内还在变；限制；
+// 解决方案：超过750px 以后，1rem代表的值不再变；媒体查询
+@media screen and (min-width:750px) {
+  html {
+    font-size: 75px!important;
+  }
+}
+
+@media screen and (max-width:319px) {
+  html {
+    font-size: 32px!important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+body {
+  width: 750/75rem;
+  margin: 0 auto;
+  font-size: 24/75rem!important;
+  // min-width: 320px;
+  // max-width: 750px;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------header
+header {
+  height: 88/75rem;
+  display: flex;
+  background-color: #FFC001;
+  position: fixed;
+  // left: 0;
+  width: 750/75rem;
+  // min-width: 320px;
+  // max-width: 750px;
+  // 
+  // row
+  .left {
+    width: 40/75rem;
+    height: 70/75rem;
+    margin: 9/75rem 15/75rem;
+    // background-color: blue;
+    background: url('../imgs/classify.png') no-repeat;
+    background-size: 100%;
+  }
+  .mid {
+    flex: 1;
+    background-color: #fff;
+    margin: 10/75rem 0;
+    border-radius: (88-20)/2/75rem;
+    line-height: 68/75rem;
+    padding-left: 50/75rem;
+  }
+  .right {
+    width: 88/75rem;
+    // background-color: red;
+    line-height: 88/75rem;
+    text-align: center;
+    color: #fff;
+  }
+}
+
+

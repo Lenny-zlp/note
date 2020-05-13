@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  html,body{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+#personkit_article_ul{
+    width: 100%;
+    position: relative;
+    -webkit-padding-start:0;
+    -webkit-margin-before:0;
+    -webkit-margin-after:0;
+}
+.pin{
+    /*width: 100%;*/
+    height: 90px;
+    background-color: #eee;
+    padding: 6px 8px;
+    position: relative;
+    border-bottom: 1px solid #fff;
+}
+.personkit-article__img{
+    width: 116px;
+    height: 90px;
+}
+.personkit-article__img img{
+    width: 100%;
+    height: 100%;
+}
+.personkit-article__info{
+    position: absolute;
+    left: 130px;
+    top: 0px;
+    padding: 0px 8px;
+}
+.personkit-article__title{
+    line-height: 0px;
+}
+/*多行文本溢出作省略处理*/
+.personkit-article__info p{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+}
+.bottom-line{
+    text-align: center;
+    background-color: #eee;
+}
+</style>
+<body>
+  <section id="item">
+    <ul id="personkit_article_ul">
+        <li class="pin">
+            <div class="personkit-article__img">
+                <img src="../public/imgs/4.png" alt="">
+            </div>
+            <div class="personkit-article__info">
+                <h3 class="personkit-article__title">关于保健的一本书</h3>
+                <p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p>
+            </div>
+        </li>
+        <li class="pin">
+            <div class="personkit-article__img">
+                <img src="../public/imgs/4.png" alt="">
+            </div>
+            <div class="personkit-article__info">
+                <h3 class="personkit-article__title">关于保健的一本书</h3>
+                <p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p>
+            </div>
+        </li>
+        <li class="pin">
+            <div class="personkit-article__img">
+                <img src="../public/imgs/4.png" alt="">
+            </div>
+            <div class="personkit-article__info">
+                <h3 class="personkit-article__title">关于保健的一本书</h3>
+                <p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p>
+            </div>
+        </li>
+        <li class="pin">
+            <div class="personkit-article__img">
+                <img src="../public/imgs/4.png" alt="">
+            </div>
+            <div class="personkit-article__info">
+                <h3 class="personkit-article__title">关于保健的一本书</h3>
+                <p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p>
+            </div>
+        </li>
+        <li class="pin">
+            <div class="personkit-article__img">
+                <img src="../public/imgs/4.png" alt="">
+            </div>
+            <div class="personkit-article__info">
+                <h3 class="personkit-article__title">关于保健的一本书</h3>
+                <p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p>
+            </div>
+        </li>
+        <li class="pin">
+            <div class="personkit-article__img">
+                <img src="../public/imgs/4.png" alt="">
+            </div>
+            <div class="personkit-article__info">
+                <h3 class="personkit-article__title">关于保健的一本书</h3>
+                <p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p>
+            </div>
+        </li>
+    </ul>
+    <div class="bottom-line"></div>
+</section>
+</body>
+<!-- <script src="../public/zepto.js"></script> -->
+<script src="./jQuery.min.js"></script>
+<script>
+
+(function(){
+   $('#personkit_article_ul').on('touchmove',function(){
+       //判断最后一个元素是否在底部之上
+       if( $('.pin').eq($('.pin').length-1).offset().top-$(window).scrollTop() < $(window).height() ){
+           $('.bottom-line').css('display','block').text('正在刷新...');
+           checkPull();
+       }
+   });
+   //添加元素方法
+   function checkPull(){
+       var pinNew;
+       pinNew=document.createDocumentFragment();
+       //每次添加5条内容
+       for(var j=5;j>0;j--){
+           var li=document.createElement('li');
+           li.className="pin";
+           li.innerHTML='<div class="personkit-article__img"><img src="../public/imgs/4.png" alt=""></div><div class="personkit-article__info"><h3 class="personkit-article__title">关于保健的一本书</h3><p>原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊原来保健是这样的啊</p></div>';
+           pinNew.appendChild(li);
+       }
+       $('#personkit_article_ul')[0].appendChild(pinNew);
+   }
+        })();
+</script>
+</html>

@@ -1,0 +1,369 @@
+@{
+  ViewBag.Title = "评论晒单";
+  ViewBag.footnav = true;
+  Layout = "~/Views/Shared/_JBWD_Layout.cshtml";
+}
+@using JiBaoWeiDian.Utility.Extensions
+@model IEnumerable<JiBaoWeiDian.Models.UserOrderComment>
+@section css{
+  <link href="~/Content/messagebox.css" rel="stylesheet" />
+  <style>
+      aside { background: #fff; width: 96%; margin: 10px 2%; padding: 10px 2%; box-sizing: border-box; }
+
+      .pric, .ms { width: 100%; overflow: hidden; }
+
+      .pric dt, .pric dd, .ms dt, .ms dd { float: left; }
+
+      .pric textarea { border: 0 none; outline: none; color: #666; width: 100%; overflow: hidden; overflow-y: scroll; resize: none; }
+
+      .pric dt { width: 20%; height: auto; }
+
+      .pric dd { width: 80%; padding: 0 2%; box-sizing: border-box; font: 14px/24px "微软雅黑"; color: #999; }
+
+      .pric img { width: 100%; display: block; border: 1px solid #efefef; box-sizing: border-box; }
+
+      .spic { width: 100%; overflow: hidden; padding: 26px 0 15px; border-bottom: 1px solid #e5e5e5; }
+
+      .spic img { width: 100%; display: block; }
+
+      .spic li { width: 18.3%; margin: 0 2% 20px 0; float: left; position: relative; border: 1px solid #efefef; box-sizing: border-box; }
+
+      .spic li:nth-child(5n) { margin-right: 0; }
+
+      .spic span { position: absolute; width: 15px; height: 15px; top: 0; right: 0; padding: 3px; cursor: pointer; background: rgba(0,0,0,.3); }
+
+
+
+      .spic li:last-child span { display: none; }
+
+      .spic li:last-child { background: #fff; }
+
+      .ms { margin-top: 20px; }
+
+      .ms dt { font: 14px/30px "微软雅黑"; color: #333; width: 20%; }
+
+      .ms dd { width: 72%; padding: 2px 4%; line-height: 30px; }
+
+      .ms span { float: left; width: 28px; height: 28px; margin-right: 8px; cursor: pointer; }
+
+      .ms .last { margin-right: 0; }
+
+      .ms .BG { background: url(//cache.jiangxinxiaozhen.com/Content/wd/star1.png) no-repeat center center; background-size: cover; }
+
+      .ms .BG1 { background: url(//cache.jiangxinxiaozhen.com/Content/wd/star.png) no-repeat center center; background-size: cover; }
+
+      footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid #e5e5e5; height: 44px; }
+
+      footer a { float: right; background: #eb5902; height: 44px; padding: 0 15px; color: #fff; font: 14px/44px "微软雅黑"; }
+  </style>
+}
+@{
+  int ispinglun = 0;
+}
+@if (null == Model || Model.Count() <= 0)
+{
+  <span>订单异常,请<a href="javascript:;" onclick="history.back()">返回</a></span>
+}
+else
+{
+  <form method="post" action="/UserCenter/My_Comment_AddORUp_@(ViewBag.ShopCode).html">
+      @foreach (JiBaoWeiDian.Models.UserOrderComment item in Model)
+      {
+          if (item.IsPackage || item.IsLargess)
+          {
+              continue;
+          }
+
+          if (string.IsNullOrEmpty(item.content) && item.status == 0)//还未评价过
+          {
+              ispinglun++;
+              string commentimg = "";
+              foreach (var imgsitem in item.comentimgs)
+              {
+                  commentimg += "," + imgsitem.img;
+              }
+              <aside>
+                  <input type="hidden" name="id" value="@item.id" />
+                  <input type="hidden" name="productcode" value="@item.productcode" />
+                  <input type="hidden" name="productname" value="@item.productname" />
+                  <input type="hidden" name="ordercode" value="@item.ordercode" />
+                  <input type="hidden" name="ordertime" value="@item.ordertime" />
+                  <input type="hidden" name="LineId" value="@item.LineId" />
+                  <input type="hidden" name="commentlevel" value="@(item.commentlevel <= 0 ? 5 : item.commentlevel)" />
+                  <input type="hidden" name="logisticslevel" value="@item.logisticslevel" />
+                  <input type="hidden" name="servelevel" value="@item.servelevel" />
+                  <input type="hidden" name="commentimg" value="@commentimg" />
+                  <input type="hidden" name="LabelId" value="@item.LabelId" />
+
+                  <dl class="pric">
+                      <dt><img src="@(JiBaoWeiDian.Utility.ImageConfig.show_productimg_100(item.productcode , 0, item.productimg))" /></dt>
+                      <dd><textarea placeholder="说说你的使用心得, 分享给想买的他们吧~" name="content"></textarea> </dd>
+                  </dl>
+
+                  <ul class="spic">
+                      @foreach (var imgsitem in item.comentimgs)
+                      {
+                          <li><img src="@(JiBaoWeiDian.Utility.ImageConfig.show_commentimg_100(item.productcode,imgsitem.img))" /> <span><img src="//cache.jiangxinxiaozhen.com/Content/wd/guan.png" /></span></li>
+                      }
+                      @*<li><img src="//cache.jiangxinxiaozhen.com/Content/wd/fb.png" /> <span><img src="//cache.jiangxinxiaozhen.com/Content/wd/guan.png" /></span></li>*@
+
+                      <li id="update">
+                          <input id="dz" type="file" style="display: none" accept="image/png,image/bmp,image/gif,image/jpg,image/jpeg">
+                          <img src="//cache.jiangxinxiaozhen.com/Content/wd/fb.png" />
+                      </li>
+                  </ul>
+                  <dl class="ms pro">
+                      <dt>商品描述</dt>
+                      <dd><span class="BG1"></span><span class="BG1"></span><span class="BG1"></span><span class="BG1"></span><span class="last BG1"></span></dd>
+                  </dl>
+                  <dl class="ms wl" style="margin-top:2px;display:none;">
+                      <dt>物流服务</dt>
+                      <dd><span></span><span></span><span></span><span></span><span class="last"></span></dd>
+                  </dl>
+                  <dl class="ms fw" style="margin-top: 2px; margin-bottom: 10px; display: none;">
+                      <dt>服务态度</dt>
+                      <dd><span></span><span></span><span></span><span></span><span class="last"></span></dd>
+                  </dl>
+              </aside>
+          }
+          else
+          {
+              string commentimg = "";
+              foreach (var imgsitem in item.comentimgs)
+              {
+                  commentimg += "," + imgsitem.img;
+              }
+              <aside>
+                  <input type="hidden" name="id" value="@item.id" />
+                  <input type="hidden" name="productcode" value="@item.productcode" />
+                  <input type="hidden" name="productname" value="@item.productname" />
+                  <input type="hidden" name="ordercode" value="@item.ordercode" />
+                  <input type="hidden" name="ordertime" value="@item.ordertime" />
+                  <input type="hidden" name="LineId" value="@item.LineId" />
+                  <input type="hidden" name="commentlevel" value="@(item.commentlevel <= 0 ? 5 : item.commentlevel)" />
+                  <input type="hidden" name="logisticslevel" value="@item.logisticslevel" />
+                  <input type="hidden" name="servelevel" value="@item.servelevel" />
+                  <input type="hidden" name="commentimg" value="@commentimg" />
+                  <input type="hidden" name="LabelId" value="@item.LabelId" />
+                  <dl class="pric">
+                      <dt><img src="@(JiBaoWeiDian.Utility.ImageConfig.show_productimg_100(item.productcode , 0, item.productimg))" /></dt>
+                      <dd><textarea placeholder="其他买家需要您的建议哦~" name="content" style="height: 118px;" readonly>@item.content</textarea> </dd>
+                  </dl>
+                  <ul class="spic">
+                      @foreach (var imgsitem in item.comentimgs)
+                      {
+                          <li><img src="@(JiBaoWeiDian.Utility.ImageConfig.show_commentimg_100(item.productcode,imgsitem.img))" /> @*<span><img src="//cache.jiangxinxiaozhen.com/Content/wd/guan.png" /></span>*@</li>
+                      }
+                      @*<li><img src="//cache.jiangxinxiaozhen.com/Content/wd/fb.png" /></li>*@
+                  </ul>
+                  <dl class="ms pro">
+                      <dt>商品描述</dt>
+                      <dd>
+                          @for (int i = 0; i < item.commentlevel; i++)
+                          {
+                              <span class="BG1"></span>
+                          }
+                          @for (int i = 0; i < 5 - item.commentlevel; i++)
+                          {
+                              <span class="BG"></span>
+                          }
+                      </dd>
+                  </dl>
+                  <dl class="ms wl" style="margin-top:2px;display:none;">
+                      <dt>物流服务</dt>
+                      <dd>
+                          @for (int i = 0; i < item.logisticslevel; i++)
+                          {
+                              <span class="BG1"></span>
+                          }
+                          @for (int i = 0; i < 5 - item.logisticslevel; i++)
+                          {
+                              <span class="BG"></span>
+                          }
+                      </dd>
+                  </dl>
+                  <dl class="ms fw" style="margin-top: 2px; margin-bottom: 10px; display: none;">
+                      <dt>服务态度</dt>
+                      <dd>
+                          @for (int i = 0; i < item.servelevel; i++)
+                          {
+                              <span class="BG1"></span>
+                          }
+                          @for (int i = 0; i < 5 - item.servelevel; i++)
+                          {
+                              <span class="BG"></span>
+                          }
+                      </dd>
+                  </dl>
+              </aside>
+          }
+      }
+  </form>
+}
+<footer>
+  @if (ispinglun > 0)
+  {
+      <a href="javascript:;" onclick="oksubmit(this)">发表评价</a>
+      <a href="javascript:;" style="display:none;" class="onclickone">数据提交中...</a>
+  }
+  else
+  {
+      <a href="javascript:;" style="background: #d1d1d1 none repeat scroll 0 0;color: #4f4f4f;">商品已评论</a>
+  }
+</footer>
+
+@section script{
+  <script src="~/Content/Scripts/MessageBox.min.js"></script>
+  @if (ispinglun > 0)
+  {
+      <script type="text/javascript">
+          function oksubmit(dom) {
+              var t = 0;
+              $("textarea[name=content]").each(function () {
+                  //alert($(this).val())
+                  if ($(this).val().length <= 0) {
+                      $.MessageBox({
+                          message: "请填写评论!",
+                          type: "no",
+                          no_button: false
+                      });
+                      t += 1;
+                      //return false;
+                  }
+              })
+              if (t <= 0) {
+
+                  var _this = $(dom);
+                  $(".onclickone").show();
+                  $(_this).hide();
+                  $.ajax({
+                      url: $("form").attr("action"),
+                      type: "Post",
+                      data: $("form").serialize(),
+                      success: function (data) {
+                          //alert(data.r);
+                          if (data.r == 1) {
+                              $.MessageBox({
+                                  message: data.info,
+                                  type: "yes",
+                                  no_button: false,
+                                  ok_click: function () {
+                                      location.reload();
+                                  }
+                              });
+                          } else {
+                              $.MessageBox({
+                                  message: data.info,
+                                  type: "no",
+                                  no_button: false
+                              });
+                              $(".onclickone").hide();
+                              $(_this).show();
+                          }
+                      }, error: function () {
+                          $(".onclickone").hide();
+                          $(_this).show();
+                      }
+                  });
+              }
+          }
+          $(function () {
+              var htext = $('.pric dt img').height();
+
+              $('.pric textarea').css('height', htext);
+
+              var Uheight = $('.spic li').css('height');
+              $('.spic').css('height', Uheight);
+              $('.fw span,.wl span').addClass('BG');
+              $('.pro span').click(function () {
+                  //alert(12);
+                  if ($(this).hasClass('BG1')) {
+                      $(this).nextAll().removeClass('BG1').addClass('BG');
+
+                  } else {
+                      $(this).addClass('BG1').prevAll().removeClass('BG').addClass('BG1');
+
+                  }
+                  //alert($(this).parent().parent().parent("aside").html())
+                  $(this).parent().parent().parent("aside").find("input[name=commentlevel]").val($(this).parent().find(".BG1").length);
+              });
+              $('.wl span').click(function () {
+                  //alert(12);
+                  if ($(this).hasClass('BG1')) {
+                      $(this).nextAll().removeClass('BG1').addClass('BG');
+
+                  } else {
+                      $(this).addClass('BG1').prevAll().removeClass('BG').addClass('BG1');
+                  }
+
+                  $(this).parent().parent().parent("aside").find("input[name=logisticslevel]").val($(this).parent().find(".BG1").length);
+              });
+              $('.fw span').click(function () {
+                  //alert(12);
+                  if ($(this).hasClass('BG1')) {
+                      $(this).nextAll().removeClass('BG1').addClass('BG');
+
+                  } else {
+                      $(this).addClass('BG1').prevAll().removeClass('BG').addClass('BG1');
+                  }
+
+                  $(this).parent().parent().parent("aside").find("input[name=servelevel]").val($(this).parent().find(".BG1").length);
+              });
+
+
+          });
+      </script>
+
+      <script>
+
+          $("#update img").click(function () {
+              $(this).parent().find("input[id=dz]").click();
+          })
+          $("input[type='file']").bind("change", function () {
+              var _this = this;
+
+              if (_this.value != "") {
+                  //$(_this).prev().find(".himg").show().next().hide();
+                  //var url = "/Upload/UploadPCommentImg";
+                  //var url = "@System.Configuration.ConfigurationManager.AppSettings["imgUploadDomain"].ToString()Upload/UploadPCommentImg/";
+                  var fd = new FormData();
+                  fd.append("Filedata", _this.files[0]);
+                  $.ajax({
+                      url: "@System.Configuration.ConfigurationManager.AppSettings["UploadDomain"]/api/UploadImg?platform=wd&type=1",
+                      type: "Post",
+                      data: fd,
+                      contentType: false,
+                      processData: false,
+                      success: function (data) {
+
+                          if (data != null && data.img.length > 0) {
+                              //alert(data.imgurl);
+
+                              var html = '<li>' + '<input type="hidden" name="imgurl" value="' + data.imgurl + '" />' + '<img src="' + data.img + '" />' + '<span><img src="//cache.jiangxinxiaozhen.com/Content/wd/guan.png" /></span></li>';
+                              $(_this).parent().before(html);
+                              var imgs = $(_this).parent().parent().parent("aside").find("input[name=commentimg]").val();
+                              $(_this).parent().parent().parent("aside").find("input[name=commentimg]").val(imgs + "," + data.imgurl);
+                              //删除上传评论图
+                              $('.spic span').bind("click", function () {
+                                  $(this).parent().css('display', 'none');
+                                  var imgurl = $(this).parent().find("input[name=imgurl]").val();
+                                  var imgs = $(this).parent().parent().parent("aside").find("input[name=commentimg]").val();
+                                  $(this).parent().parent().parent("aside").find("input[name=commentimg]").val(imgs.replace("," + imgurl, ""))
+
+                              });
+
+                          }
+                          else if (data != null && data.status == 0) {
+                              alert("图片上传失败!" + data.p);
+                          }
+                      },
+                      error: function () {
+                          alert("图片上传异常");
+                      }
+                  });
+              }
+          });
+
+      </script>
+  }
+}

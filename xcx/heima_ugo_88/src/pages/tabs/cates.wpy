@@ -1,0 +1,82 @@
+<template>
+  <view class="cates-list">
+    <!-- 左侧导航栏 -->
+    <scroll-view class="left" scroll-y style="height: {{vh}}px">
+      <van-sidebar activeKey="{{ activeKey }}" @change="onchange">
+        <block wx:for="{{cates}}" wx:key="cat_id">
+          <van-sidebar-item title="{{item.cat_name}}"></van-sidebar-item>
+        </block>
+      </van-sidebar>
+    </scroll-view>
+    <!-- 右侧导航栏 -->
+    <scroll-view scroll-top="{{scrollTop}}" class="right" scroll-y  style="height: {{vh}}px">
+      <view wx:for="{{cateselect}}" wx:key="index">
+        <!-- 标题  二级分类-->
+        <view class="catname">
+          <text>/<text class="pad">{{item.cat_name}}</text>/</text>
+        </view>
+        <!-- 以下代码正确 但此版本不支持编码 -->
+        <!-- <view class="catname" space="emsp" decode>/&emsp;{{item.cat_name}}&emsp;/</view> -->
+        <!-- 图片  三级分类-->
+        <view class="cates-pic">
+          <view wx:for="{{item.children}}" wx:key="cat_id" @tap="ongoshoplist({{item.cat_id}})">
+            <image src="{{item.cat_icon}}" mode="widthFix"></image>
+            <text>{{item.cat_name}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import mix from '@/mixins/tabs/cates.js'
+
+export default class extends wepy.page {
+  mixins = [mix]
+}
+</script>
+
+<style lang="less">
+  .cates-list {
+    display: flex;
+    .left {
+      width: 85px;
+      .item {
+        padding: 40rpx;
+        border-left: 6rpx solid #fff;
+      }
+    }
+    .right {
+      flex: 1;
+      .catname {
+        text-align: center;
+        margin: 30rpx;
+      }
+      .cates-pic {
+        display: flex;
+        flex-wrap: wrap;
+        view {
+          width: 33.33%;
+          display: flex;
+          padding: 10rpx;
+          align-items: center;
+          box-sizing: border-box;
+          flex-direction: column;
+        }
+        text {
+          font-size: 24rpx;
+        }
+        image {
+          width: 120rpx;
+        }
+      }
+    }
+  }
+  .pad {
+    margin: 50rpx;
+    font-size: 30rpx;
+    font-weight: 700;
+  }
+</style>

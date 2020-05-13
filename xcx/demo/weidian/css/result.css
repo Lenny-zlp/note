@@ -1,0 +1,96 @@
+@media screen and (min-width: 750px) {
+  html {
+    font-size: 75px!important;
+  }
+}
+@media screen and (max-width: 319px) {
+  html {
+    font-size: 32px!important;
+  }
+}
+body {
+  width: 10rem;
+  margin: 0 auto;
+  font-size: 0.32rem !important;
+}
+a {
+  text-decoration: none;
+}
+.w {
+  /* width: 750/75rem; */
+  margin: auto;
+}
+.cont {
+  width: 6.42666667rem;
+  height: 4.14666667rem;
+  padding: 0.34666667rem 1.78666667rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #eb5902;
+}
+.cont .top {
+  display: flex;
+  height: 1.52rem;
+  align-items: center;
+}
+.top img {
+  width: 0.66666667rem;
+  height: 0.66666667rem;
+}
+.top span {
+  font-size: 0.42666667rem;
+  margin-left: 0.18666667rem;
+}
+p {
+  margin-bottom: 0.10666667rem;
+  font-size: 0.37333333rem;
+  color: #fff;
+}
+.bot {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.16rem;
+}
+.bot span {
+  width: 2.64rem;
+  height: 0.8rem;
+  font-size: 0.4rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.8rem;
+  border-radius: 0.41333333rem;
+  border: 0.01333333rem solid #fff;
+}
+/* .gohome {
+
+} */
+.hidcomment {
+  margin-top: 0.66666667rem;
+  background-color: #eee;
+  height: 1.78666667rem;
+  line-height: 1.78666667rem;
+  text-align: center;
+  font-size: 0.37333333rem;
+  color: #999;
+}
+.hidcomment p {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.78666667rem;
+}
+.hidcomment p span {
+  background: url("../images/折叠评价箭头@2x.png") no-repeat;
+  background-size: contain;
+  margin-left: 0.16rem;
+  display: inline-block;
+  width: 0.42666667rem;
+  height: 0.42666667rem;
+}

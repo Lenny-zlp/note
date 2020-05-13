@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css滚动视差</title>
+  <style>
+  .g-container {
+  width: 600px;
+  margin: 0px auto;
+  padding: 0 0 20px 0;
+}
+
+h2 {
+  text-align: center;
+  padding: 60px 0 10px;
+  font-size: 20px;
+}
+
+p {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+.g-bgat-scroll {
+  height: 200px;
+  border: 1px solid #000;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533565295933&di=4a1a94e76121bff62abc53348d189036&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F8644ebf81a4c510f655550ce6a59252dd52aa555.jpg");
+  background-size: cover;
+  background-attachment: scroll;
+}
+
+.g-bgat-local {
+  height: 200px;
+  border: 1px solid #000;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533565295933&di=4a1a94e76121bff62abc53348d189036&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F8644ebf81a4c510f655550ce6a59252dd52aa555.jpg");
+  background-size: 100% cover;
+  background-attachment: local;
+}
+
+.g-bgat-fixed {
+  height: 200px;
+  border: 1px solid #000;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533565295933&di=4a1a94e76121bff62abc53348d189036&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F8644ebf81a4c510f655550ce6a59252dd52aa555.jpg");
+  background-size: 100% cover;
+  background-attachment: fixed;
+}
+  </style>
+</head>
+<body>
+  <div class="g-container">
+    <h2>background-attachment: scroll;</h2>
+    <div class="g-bgat-scroll">
+        <div class="g-content">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+            <p>9</p>
+            <p>10</p>
+            <p>1</p>
+        </div>
+    </div>
+    
+    <h2>background-attachment: local;</h2>
+    <div class="g-bgat-local">
+        <div class="g-content">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+            <p>9</p>
+            <p>10</p>
+            <p>1</p>
+        </div>
+    </div>
+    
+    <h2>background-attachment: fixed;</h2>
+    <div class="g-bgat-fixed">
+        <div class="g-content">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+            <p>7</p>
+            <p>8</p>
+            <p>9</p>
+            <p>10</p>
+            <p>1</p>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 
+  background-attachment: scroll
+scroll 此关键字表示背景相对于元素本身固定， 而不是随着它的内容滚动。
+
+background-attachment: local
+local 此关键字表示背景相对于元素的内容固定。如果一个元素拥有滚动机制，背景将会随着元素的内容滚动， 并且背景的绘制区域和定位区域是相对于可滚动的区域而不是包含他们的边框。
+
+background-attachment: fixed
+fixed 此关键字表示背景相对于视口固定。即使一个元素拥有滚动机制，背景也不会随着元素的内容滚动。
+ -->
+</html>

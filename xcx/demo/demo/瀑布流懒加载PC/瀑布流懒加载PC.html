@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  #container {
+    position: relative;
+  }
+  .box {
+    float: left;
+    padding: 5px;
+  }
+  .box-img {
+    padding: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 5px;
+  }
+  .box-img img {
+    width: 230px;
+    height: auto;
+  }
+</style>
+<body>
+  <div id="container">
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_21_35_3125 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_12_1_17_22_3_7417 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_3_30_11_1_18_1269 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_3_30_11_1_18_1269 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_3_30_11_1_18_1269 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_3_30_11_1_18_1269 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_3_30_11_1_18_1269 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2017_7_18_15_5_17_7994 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2018_1_24_9_41_59_2198 - 副本.jpg" alt="">
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-img">
+        <img src="./images/2018_1_24_9_42_10_9906 - 副本.jpg" alt="">
+      </div>
+    </div>
+  </div>
+  <script>
+    window.onload = function () {
+    imgLocation('container', 'box');
+
+    // 模仿数据
+    var imgData = {
+      "data": [
+        {"src":"2017_12_1_17_21_35_3125 - 副本.jpg"},
+        {"src":"2017_12_1_17_22_3_7417 - 副本.jpg"},
+        {"src":"2017_3_30_11_1_18_1269 - 副本.jpg"},
+        {"src":"2018_1_24_9_41_59_2198 - 副本.jpg"},
+        {"src":"2017_12_1_17_21_35_3125 - 副本.jpg"},
+        {"src":"2017_12_1_17_22_3_7417 - 副本.jpg"},
+        {"src":"2017_3_30_11_1_18_1269 - 副本.jpg"},
+        {"src":"2018_1_24_9_41_59_2198 - 副本.jpg"},
+        {"src":"2017_12_1_17_21_35_3125 - 副本.jpg"},
+        {"src":"2017_12_1_17_22_3_7417 - 副本.jpg"},
+        {"src":"2017_3_30_11_1_18_1269 - 副本.jpg"},
+        {"src":"2018_1_24_9_41_59_2198 - 副本.jpg"},
+        {"src":"2017_12_1_17_21_35_3125 - 副本.jpg"},
+        {"src":"2017_12_1_17_22_3_7417 - 副本.jpg"}
+        ]};
+    window.onscroll = function () {
+        if (checkFlag()) {
+            var cparent = document.getElementById("container");
+            for (var i =0; i<imgData.data.length; i++) {
+                var ccontent = document.createElement('div');
+                ccontent.className = 'box';
+                cparent.appendChild(ccontent);
+                var boxImg = document.createElement('div');
+                boxImg.className = 'box-img';
+                ccontent.appendChild(boxImg);
+                var img = document.createElement("img");
+                img.style.cssText = 'opacity: 0; transform:scale(0)';
+                img.src = "images/" + imgData.data[i].src + "";
+                boxImg.appendChild(img);
+                (function(img){  // 自执行程序闭包
+                    setTimeout(function(){
+                        img.style.cssText="opacity:1;transform:scale(1)";
+                    },1000); // 这里的时间自定，我是为了测试才写的1000
+                })(img);
+            }
+            imgLocation('container', 'box');
+        }
+    }
+};
+function imgLocation(parent, content) {
+    // 将parent下面的所有content全部取出
+    var cparent = document.getElementById(parent);
+    var ccontent = getChildElement(cparent, content);
+
+    // 完善图片布局
+    var imgWidth = ccontent[0].offsetWidth; // 图片的宽度
+    var num = Math.floor(document.documentElement.clientWidth / imgWidth); // 横排的显示个数
+    cparent.style.cssText = "width:" + imgWidth * num + "px;margin: 0 auto"; // 给父级添加宽度
+
+    // 计算图片的高度
+    var boxHeightArr = [];
+    for (var i=0; i<ccontent.length; i++) {
+        if(i < num) {
+            boxHeightArr[i] = ccontent[i].offsetHeight;
+            console.log(boxHeightArr);
+        } else {
+            var minHeight =  getMin(boxHeightArr); //最小的高度
+            var minIndex = getMinheightLocation(boxHeightArr, minHeight);
+            ccontent[i].style.position = 'absolute';
+            ccontent[i].style.top = minHeight + 'px';
+            ccontent[i].style.left = ccontent[minIndex].offsetLeft + 'px';
+            boxHeightArr[minIndex] = boxHeightArr[minIndex] + ccontent[i].offsetHeight; // 更新最小高度
+        }
+    }
+}
+function getMin(arr) {  // 得到图片的最小高度
+    for(var i=0, ret=arr[0]; i<arr.length; i++) {
+        ret = Math.min(ret, arr[i]);  // 依次将最小值赋值给ret，ret始终最小
+    }
+    return ret;
+}
+function getMinheightLocation(boxHeightArr, minHeight) { // 得到图片最小高度的序列号
+    for (var i in boxHeightArr) {
+        if ( boxHeightArr[i] === minHeight) {
+            return i;
+        }
+    }
+}
+function getChildElement(cparent, content) { // 得到子集空间
+    var contentArr = [];
+    var allcontent = cparent.getElementsByTagName('*'); // 获取到所有的元素
+    for (var i=0; i<allcontent.length; i++ ) {
+        if (allcontent[i].className === content) {
+            contentArr.push(allcontent[i]);
+        }
+    }
+    return contentArr;
+}
+function checkFlag() {
+    var cparent = document.getElementById('container');
+    var ccontent = getChildElement(cparent, "box");
+
+    // 数组最后一个元素的高度距离顶部的距离
+    var lastContentHeight = ccontent[ccontent.length-1].offsetTop;
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var pageHeight = document.documentElement.clientHeight || document.body.scrollHeight;
+    if(lastContentHeight < scrollTop + pageHeight){
+        return true;
+    }
+}
+  </script>
+</body>
+</html>

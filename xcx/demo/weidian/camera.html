@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调用相机相册功能</title>
+</head>
+
+<body>
+  <!--图片二-->
+  <label for="xFile2" style="padding-top:15px;" class=" cameraImg2" @click="removeImg2();">
+    <span v-if="imgList2.length == ''" class="glyphicon-camera">
+      <p style="line-height:5px;">
+        <label>图片二</label>
+        <!--调取相机-->
+        <input type="file" id="xFile2" capture="camera" multiple="multiple" accept="image/*" class="imgInp1"
+          @change='onUpload2($event)' style="position:absolute;clip:rect(0 0 0 0); width: 100%; height: 105px; top:0px;"
+          v-if="judgeFan">
+      </p>
+    </span>
+  </label>
+  <script>
+
+    // 解决ios照片旋转问题
+    //获取照片的拍摄方向
+    function getOrientation(file, callback) {
+      var reader = new FileReader()
+      reader.onload = function (e) {
+        var view = new DataView(e.target.result)
+        if (view.getUint16(0, false) != 0xFFD8) {
+          return callback(-2)
+        }
+        var length = view.byteLength, offset = 2
+        while (offset < length) {
+          var marker = view.getUint16(offset, false)
+          offset += 2
+          if (marker == 0xFFE1) {
+            if (view.getUint32(offset += 2, false) != 0x45786966) {
+              return callback(-1)
+            }
+            var little = view.getUint16(offset += 6, false) == 0x4949;
+            offset += view.getUint32(offset + 4, little)
+            var tags = view.getUint16(offset, little)
+            offset += 2
+            for (var i = 0; i < tags; i++) {
+              if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                return callback(view.getUint16(offset + (i * 12) + 8, little))
+            }
+          } else if ((marker & 0xFF00) != 0xFF00) {
+            break
+          } else {
+            offset += view.getUint16(offset, false)
+          }
+        }
+        return callback(-1);
+      }
+      reader.readAsArrayBuffer(file)
+    }
+
+    /*
+    获取图片的事件
+    */
+    function onUpload(input) {
+      var _this = this
+      if (_this.judgeZheng) {
+        _this.judgeZheng = false
+        _this.hideImg2 = true
+        /*
+         imglist 是定义的一个存放图片的数组，来判断只能上传一张图片
+       */
+        if (this.imgList.length >= 1) {
+          $.alert("只能上传一张照片！")
+          return
+        }
+        if (input.target.files && input.target.files[0]) {
+          if (window.FileReader) {
+            var name = input.target.value.substring(
+              input.target.value.lastIndexOf(".") + 1,
+              input.target.value.lastIndexOf(".").length
+            )
+            var timeStamp = input.timeStamp
+            /*
+           创建一个FileReader对象，用来获取文件
+           */
+            var reader = new FileReader()
+            reader.onload = function (e) {
+              var objs = {
+                url: e.target.result,
+                name: name,
+                timeStamp: timeStamp
+              };
+              ysImg(objs, function (objs) {
+                _this.imgListzheng = objs.url
+                _this.img_file = input
+                _this.thumbnailUrl = objs.url
+                _this.img_data = objs.url
+                _this.img_name = '11.jpg'
+                _this.timeStamp = objs.timeStamp
+              })
+              function ysImg(objs, callback) {
+                //设置压缩图片的最大高度
+                var imgarr = []
+                var MAX_HEIGHT = 1000;
+                //获取拍摄方向
+                _this.getOrientation(input.target.files[0], function (orientation) {
+                  _this.orientation = orientation;
+                })
+                // 创建一个 Image 对象
+                var image = new Image()
+                image.src = objs.url
+                // 绑定 load 事件处理器，加载完成后执行
+                image.onload = function () {
+                  // 获取 canvas DOM 对象
+                  var canvas = document.createElement("canvas")
+                  // 如果高度超标
+                  if (image.height > MAX_HEIGHT && image.height >= image.width) {
+                    // 宽度等比例缩放 *=
+                    image.width *= MAX_HEIGHT / image.height
+                    image.height = MAX_HEIGHT
+                  }
+                  //考录到用户上传的有可能是横屏图片同样过滤下宽度的图片。
+                  if (image.width > MAX_HEIGHT && image.width > image.height) {
+                    // 宽度等比例缩放 *=
+                    image.height *= MAX_HEIGHT / image.width
+                    image.width = MAX_HEIGHT
+                  }
+                  // 获取 canvas的 2d 画布对象,
+                  var ctx = canvas.getContext("2d")
+                  // canvas清屏，并设置为上面宽高
+                  ctx.clearRect(0, 0, canvas.width, canvas.height)
+                  // 重置canvas宽高
+                  canvas.width = image.width
+                  canvas.height = image.height
+                  //判断图片拍摄方向是否旋转了90度
+                  if (_this.orientation == 6) {
+                    var x = canvas.width / 2                //画布宽度的一半
+                    var y = canvas.height / 2               //画布高度的一半
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)           //先清掉画布上的内容
+                    ctx.translate(x, y);                      //将绘图原点移到画布中点
+                    ctx.rotate((Math.PI / 180) * 90);      //旋转角度
+                    ctx.translate(-x, -y);                    //将画布原点移动
+                    ctx.drawImage(image, 0, 0, image.width, image.height)       //绘制图片
+                  } else {
+                    // 将图像绘制到canvas上
+                    ctx.drawImage(image, 0, 0, image.width, image.height)
+                    // !!! 注意，image 没有加入到 dom之中
+                    //        document.getElementById('img').src = canvas.toDataURL("image/png");
+                  }
+                  _this.blob = canvas.toDataURL("image/jpeg", 0.5)
+                  if (objs.url.length < _this.blob.length) {
+                    objs.url = objs.url
+                  } else {
+                    objs.url = _this.blob
+                  }
+                  var arrName = _this.blob.split(",")
+                  var strName1 = arrName[1]
+                  /* 将获取的图片资源通过接口上传到后台
+                 */
+                  _this.API.post('/gateway/gateway', { fileContent: strName1, fileName: '11.jpg', fileType: "A01" })
+                    .then(function (res) {
+                      if (res.code == "000000") {
+                        if (res.data.idCardNumber) {
+                          _this.noName = res.data.name;
+                          _this.noIdCardNumber = res.data.idCardNumber;
+                          if (_this.blob3) {
+                            _this.name = _this.noName;
+                            _this.idCardNumber = _this.noIdCardNumber
+                          }
+                        }
+                        _this.imgList.push(_this.imgListzheng);
+                      } else {
+                        _this.imgList = [];
+                        _this.judgeZheng = true;
+                      }
+                    })
+                  //将转换结果放在要上传的图片数组里
+                  callback(objs);
+                }
+              }
+            }
+            reader.onabort = function () {
+              alert("上传中断")
+            }
+            reader.onerror = function () {
+              alert("上传出错")
+            }
+            reader.readAsDataURL(input.target.files[0])
+          } else {
+            alert("Not supported by your browser!")
+          }
+        }
+      } else {
+      }
+    }
+
+  </script>
+</body>
+
+</html>

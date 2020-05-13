@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>demo</title>
+  <style>
+    body {
+      font-family: "Microsoft Yahei", 微软雅黑;
+    }
+
+    .hid {
+      display: none !important;
+    }
+
+    .red {
+      color: #EB5902;
+    }
+
+    .line {
+      border: 1px solid #EB5902;
+      border-radius: 1px;
+      background-color: #EB5902;
+    }
+
+    .lin {
+      border: 1px solid rgba(255, 255, 255, 0);
+      border-radius: 1px;
+    }
+
+    /*头部固定*/
+    .main .top_nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .main .comment_top {
+      position: fixed;
+      width: 100%;
+      top: 44px;
+      left: 0;
+    }
+
+    /* .comment_nav {
+        margin-bottom: 50px;
+    }*/
+    .bot {
+      padding-top: 89px;
+    }
+
+    .comment_nav .comment_top {
+      font-family: 微软雅黑;
+      font-size: 16px;
+      color: #303030;
+      display: flex;
+      height: 45px;
+      align-items: center;
+      align-content: flex-start;
+    }
+
+    .comment_nav .comment_top div {
+      flex: 1;
+      display: flex;
+      align-content: flex-start;
+      flex-direction: column;
+      height: 45px;
+      line-height: 41px;
+      text-align: center;
+      background-color: #fff;
+      align-items: center;
+    }
+
+    .comment_nav .comment_top div span {
+      flex: 1;
+    }
+
+    .comment_nav .comment_top div i {
+      width: 28px;
+    }
+
+    .y_cont {
+      padding-bottom: 50px;
+    }
+
+    .y_cont ul li {
+      font-family: 微软雅黑;
+      border-top: 1px solid #eee;
+      padding: 17px 15px 22px 15px;
+      background-color: #fff;
+    }
+
+    .y_cont ul li .y_top {
+      display: flex;
+      margin-bottom: 17px;
+    }
+
+    .y_cont ul li .y_top .y_img {
+      width: 75px;
+      height: 75px;
+      border-radius: 2px;
+      overflow: hidden;
+      background-color: #ccc;
+    }
+
+    .y_cont ul li .y_top .y_img img {
+      width: 75px;
+      height: 75px;
+    }
+
+    .y_cont ul li .y_top .y_grade {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 14px;
+    }
+
+    .y_cont ul li .y_top .y_grade .specs {
+      font-size: 14px;
+      color: #999;
+    }
+
+    .y_cont ul li .y_top .y_grade .y_font {
+      height: 30px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .y_cont ul li .y_top .y_grade .y_star {
+      display: flex;
+      align-items: center;
+      height: 28px;
+      line-height: 28px;
+    }
+
+    .y_cont ul li .y_top .y_grade .y_star i {
+      font-size: 12px;
+      font-style: normal;
+      margin-right: 10px;
+      color: #303030;
+    }
+
+    .y_cont ul li .y_top .y_grade .y_star span {
+      display: inline-block;
+      display: flex;
+      margin-right: 4px;
+      width: 12px;
+      height: 12px;
+    }
+
+    .y_cont ul li .y_top .y_grade .y_star img {
+      width: 12px;
+      height: 12px;
+    }
+
+    .y_cont ul li .appraise_time {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 15px;
+    }
+
+    .y_cont ul li .replay {
+      background-color: #ccc;
+      padding: 15px 12px;
+      font-size: 14px;
+      color: #666;
+      line-height: 23px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .y_cont ul li p {
+      font-size: 14px;
+      line-height: 21px;
+      margin-bottom: 15px;
+      color: #303030;
+    }
+
+    .y_cont ul li .y_bot {
+      font-size: 0;
+      padding-bottom: 4px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .y_cont ul li .y_bot span {
+      width: 85px;
+      height: 85px;
+      background-color: #eee;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-right: 16px;
+      margin-bottom: 16px;
+    }
+
+    .y_cont ul li .y_bot span img {
+      width: 85px;
+      height: 85px;
+    }
+
+    .y_cont .loadp {
+      font-family: '微软雅黑';
+      font-size: 14px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+    }
+
+    .bg_img {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 400px;
+    }
+
+    .bg_img img {
+      width: 121px;
+      height: 122px;
+      margin-bottom: 20px;
+    }
+
+    .bg_img p {
+      height: 40px;
+      color: #999;
+    }
+
+    .imgBg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: rgba(0, 0, 0, .2);
+      z-index: 2;
+      display: none;
+    }
+
+    .imgBg img {
+      display: block;
+      width: 80%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="comment_nav">
+    <div class="comment_top">
+      <div class="comment_d"><span>待评价</span><i class="lin"></i></div>
+      <div class="comment_y red"><span>已评价</span><i class="line"></i></div>
+    </div>
+    <div class="bot">
+      <div class="y_cont">
+        <ul>
+          <!--这里为什么使用Html.Partial而不使用@Html.Action,目的是为了少一次请求。而且使用Action无法加载待评价条数等数据，只能请求到列表数据-->
+
+          <li>
+            <div class="y_top" data-productcode="0000448">
+              <div class="y_img">
+                <img
+                  src="./weidian/images/2020_3_2_10_0_54_1260.jpg"
+                  alt="福龟智能迷你按摩贴">
+              </div>
+              <div class="y_grade">
+                <div class="y_font">
+                  福龟智能迷你按摩贴
+                </div>
+                <div class="specs">标准套装(主机+贴片×2) </div>
+                <div class="y_star">
+                  <i>评分:</i>
+
+                </div>
+              </div>
+            </div>
+            <p>大长图</p>
+            <div class="y_bot">
+              <span class="y_image">
+                <img
+                  src="./weidian/images/已评价-星星-灰色@2x.png"
+                  alt="">
+              </span>
+              <span class="y_image">
+                <img
+                  src="./weidian/images/已评价-星星-高亮@2x.png"
+                  alt="">
+              </span>
+            </div>
+            <div class="appraise_time">
+              评价时间: <span>2020/4/23 15:38:29</span>
+            </div>
+            <div class="imgBg" style="display: none;">
+              <img src="">
+            </div>
+          </li>
+          <li>
+            <div class="y_top" data-productcode="0000297">
+              <div class="y_img">
+                <img
+                  src="./weidian/images/折叠评价箭头@2x.png"
+                  alt="德式精酿啤酒(6支/箱)">
+              </div>
+              <div class="y_grade">
+                <div class="y_font">
+                  德式精酿啤酒(6支/箱)
+                </div>
+                <div class="specs">330ml×6支/箱 </div>
+                <div class="y_star">
+                  <i>评分:</i>
+
+                </div>
+              </div>
+            </div>
+            <p>这里有图片哦</p>
+            <div class="y_bot">
+              <span class="y_image">
+                <img
+                  src="./weidian/images/添加照片@2x.png"
+                  alt="">
+              </span>
+              <span class="y_image">
+                <img
+                  src="./weidian/images/评价成功@2x.png"
+                  alt="">
+              </span>
+            </div>
+            <div class="appraise_time">
+              评价时间: <span>2020/4/23 15:38:02</span>
+            </div>
+            <div class="imgBg" style="display: none;">
+              <img src="">
+            </div>
+          </li>
+          <li>
+            <div class="y_top" data-productcode="0000293">
+              <div class="y_img">
+                <img
+                  src="./weidian/images/评价成功@3x.png"
+                  alt="山茶酵素牙膏(2支)">
+              </div>
+              <div class="y_grade">
+                <div class="y_font">
+                  山茶酵素牙膏(2支)
+                </div>
+                <div class="specs">125g/支×2 </div>
+                <div class="y_star">
+                  <i>评分:</i>
+
+
+                </div>
+              </div>
+            </div>
+            <p>牙膏好用</p>
+            <div class="appraise_time">
+              评价时间: <span>2020/4/23 13:42:51</span>
+            </div>
+            <div class="replay">
+              小镇回复:谢谢惠顾
+            </div>
+          </li>
+          <input type="hidden" class="ReNewRows" value="3">
+        </ul>
+        <p class="loadp" style="display:none">已加载完全部数据！！！</p>
+        
+      </div>
+    </div>
+  </div>
+  <script src="./weidian/js/jQuery.min.js"></script>
+  <script>
+    
+    $(function () {
+      $('.comment_d').click(function () {
+        window.location.href = 'My_ReCommentList_@(ViewBag.ShopCode).html';
+      });
+
+      $(".y_top").on("click", function () {
+        window.location.href = "/Product/Product?productCode=" + $(this).data("productcode");
+      })
+
+    // $('.y_image img').on('click', function () {
+    //   var srcImg = $(this).attr("src")//data("bigimg");
+    //   $(this).parents("li").find(".imgBg").show();
+    //   $(this).parents("li").find(".imgBg img").attr('src', srcImg)
+    // })
+    // 点击图片放大
+    var index, len, that;
+    $('.y_image').on('click', function () {
+      that = $(this).parent().find('.y_image')
+      len = $(this).parent().find('.y_image').length
+      console.log(len,123);
+      index = $(this).index()
+      $(".imgBg img").attr("src", '')
+      var srcImg = $(this).find('img').attr("src")//data("bigimg");
+      $(this).parents("li").find(".imgBg").show();
+      $(this).parents("li").find(".imgBg img").attr('src', srcImg)
+      
+    })
+
+
+
+    // 点击隐藏图片
+    $('.imgBg').click(function () {
+      $(this).hide();
+    })
+
+    // 左右滑动事件
+
+    //定义变量，用于记录坐标和角度
+    var startx, movex, endx, nx;
+    //开始触摸函数，event为触摸对象
+    function touchs(event) {
+      event.preventDefault();//阻止浏览器默认滚动事件
+
+      if (event.type == "touchstart") {//通过if语句判断event.type执行了哪个触摸事件
+        var touch = event.touches[0];//获取开始的位置数组的第一个触摸位置
+        startx = Math.floor(touch.pageX);//获取第一个坐标的X轴
+      } else if (event.type == "touchmove") {//触摸中的坐标获取
+        var touch = event.touches[0];
+        movex = Math.floor(touch.pageX);
+      } else if (event.type == "touchend" || event.type == "touchcancel") {//当手指离开屏幕或系统取消触摸事件的时候
+        endx = Math.floor(event.changedTouches[0].pageX);//获取最后的坐标位置
+        nx = endx - startx;//获取开始位置和离开位置的距离
+        //console.log(nx)
+        //判断滑动方向
+        if (nx <= -10 && index < len - 1) {
+          console.log('图片数量',len);
+          console.log('点击目标',$(that));
+          index++;
+          var activeImg = $(that).find("img").eq(index).attr("src");
+          console.log(222,activeImg);
+          $(that).parent().siblings(".imgBg").find("img").attr("src", activeImg);
+          return false;
+        }
+        if (nx >= 10 && index > 0) {
+          index--;
+          var activeImg = $(that).find("img").eq(index).attr("src");
+          console.log(222,activeImg);
+          $(that).parent().siblings(".imgBg").find("img").attr("src", activeImg);
+
+          return false;
+        }
+        if (nx >= -9 && nx <= 9) {
+          $('.imgBg').hide();
+          return false;
+        }
+      }
+    }
+    var box = document.querySelectorAll(".imgBg");//获取DOM标签
+    console.log(box);
+    box.forEach(function(item,index) {
+      item.addEventListener("touchstart", touchs, false);
+      item.addEventListener("touchmove", touchs, false);
+      item.addEventListener("touchend", touchs, false);
+    })
+  
+  })
+
+  </script>
+
+</body>
+
+</html>

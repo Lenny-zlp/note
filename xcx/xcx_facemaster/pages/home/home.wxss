@@ -1,0 +1,43 @@
+/* pages/home/home.wxss */
+.btn-box {
+  position: absolute;
+  bottom: 80rpx;
+  z-index: 999;
+
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.btn-box cover-image {
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.btnReChoose {
+  position: absolute;
+  bottom: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.faceinfo-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 300rpx;
+  background-color: rgba(255,255,255, 0.8);
+  border-radius: 10rpx;
+  box-shadow: 0 10rpx 10rpx #eee;
+  font-size: 24rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.faceinfo-box .row {
+  display: flex;
+  justify-content: space-around;
+}
